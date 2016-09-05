@@ -35,6 +35,15 @@ def clean_phone_numbers(phone_number)
   end
 end
 
+def time_targeting(datetime)
+  array_of_hours = []
+  hash_of_hours = {}
+  datetime = DateTime.strptime(datetime, "%D %H:%M")
+  array_of_hours.push(datetime.hour)
+  hash_of_hours[datetime.hour] = array_of_hours.count(datetime.hour)
+  datetime = datetime.strftime("Date is: %Y%m%d; Time is: %H:%M; peak registration time is: #{hash_of_hours.key(hash_of_hours.values.max)}")
+end
+
 puts "EventManager initialized."
 
 contents = CSV.open 'event_attendees.csv', headers: true, header_converters: :symbol
@@ -55,6 +64,8 @@ contents.each do |row|
   save_thank_you_letters(id, form_letter)
 
   clean_phone_numbers(row[:homephone])
+
+  time_targeting(row[:regdate])
 
   puts row
 end
