@@ -35,10 +35,16 @@
           next
         elsif char == answer
           @board.hits[index] = answer
-        elsif char != answer
+        end
+      end
+      if @code.all? { |var| var != answer } == true
           @board.misses.push(answer)
           @board.misses = @board.misses.uniq
-        end
+          @guesses-=1
+      end
+      if @code == @board.hits
+        puts "You have won!"
+        exit
       end
     end
 
@@ -48,14 +54,12 @@
         puts "Misses: #{@board.misses}"
         puts "Hits: #{@board.hits}"
         puts "Number of guesses left: #{@guesses}"
-        @guesses-=1
       end
     end
 
     def save
     end
 
-    protected :tries, :secret_word
   end
 
   class Board
@@ -64,6 +68,9 @@
     def initialize
       @misses = []
       @hits = []
+    end
+
+    def stickman
     end
   end
 
