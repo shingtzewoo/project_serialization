@@ -35,7 +35,6 @@
           next
         elsif char == answer
           @board.hits[index] = answer
-          break
         elsif char != answer
           @board.misses.push(answer)
           @board.misses = @board.misses.uniq
@@ -52,6 +51,11 @@
         @guesses-=1
       end
     end
+
+    def save
+    end
+
+    protected :tries, :secret_word
   end
 
   class Board
