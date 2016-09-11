@@ -11,7 +11,7 @@
 
     def secret_word
       list = @file.readlines
-      @code = list.sample
+      @code = list.sample.downcase
       if @code.length < 5 || @code.length > 12
         @code = list.sample
       end
@@ -19,11 +19,13 @@
       @code = @code.delete_if do |char|
         char == "\r" || char == "\n"
       end
+      @board.hits = @code.map { |var| var = "_"  }
     end
 
     def tries
       puts "Please guess a letter."
       answer = gets.chomp
+      answer = answer.downcase.strip
       if answer.length > 1
         puts "Please enter a single letter for your guess."
         tries
@@ -44,10 +46,12 @@
     def start
       while @guesses > 0
         tries
+        puts "Misses: #{@board.misses}"
+        puts "Hits: #{@board.hits}"
+        puts "Number of guesses left: #{@guesses}"
         @guesses-=1
       end
     end
-
   end
 
   class Board
