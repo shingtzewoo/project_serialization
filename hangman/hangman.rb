@@ -55,6 +55,7 @@
         puts "Hits: #{@board.hits}"
         puts "Number of guesses left: #{@guesses}"
       end
+      puts "The secret word was #{@code.join}!"
     end
 
     def save
